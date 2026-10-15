@@ -1,45 +1,55 @@
 # 备用安装路径：从 ima 知识库还原本技能
 
 > 适用场景：不想用 `git clone`，或需要在一台**没有 GitHub 访问**的设备上装本技能。
-> 前提：该设备登录**同一个 ima 账号**，并已连接 ima 连接器。
+> 该路径**不需要网络、不需要 ima 连接器**——安装包是纯文本，自带全部文件内容。
 
-## 一、技能由两部分组成
+## 一、首选：自还原安装包
 
-| 部件 | 存放位置 | 是否随设备走 |
-| --- | --- | --- |
-| 技能文件（4 个 .md） | ima「成果」知识库 | 云端，跟账号走 |
-| 运行时典籍（15 个文件） | ima「资料 / 易经 / 知识库」 | 云端，跟账号走 |
+在 ima 个人知识库「成果 / **易经占卦-skill**」中取这一份：
 
-因此换设备**不需要重新整理任何内容**，只要：① 还原技能文件到本地技能目录；② 新设备登录同一 ima 账号并连接 ima 连接器。
-
-## 二、还原映射
-
-本地技能目录（**用户级**，所有项目通用）：
-
-- Windows：`C:\Users\<你的用户名>\.workbuddy\skills\yijing-divination\`
-- macOS / Linux：`~/.workbuddy/skills/yijing-divination/`
-
-| 本地目标文件 | 来源（ima「成果」中的标题） |
+| 文件 | 说明 |
 | --- | --- |
-| `SKILL.md` | yijing-divination-SKILL.md |
-| `references/gua-index.md` | yijing-divination-gua-index.md |
-| `references/jiugua-rules.md` | yijing-divination-jiugua-rules.md |
-| `references/knowledge-map.md` | yijing-divination-knowledge-map.md |
-| `scripts/divine_gua.py` | （ima 上传不支持 .py；可选，见下） |
+| `yijing-divination-安装包（自还原）.md` | 包含**全部 17 个文件**的完整内容，用 `<!-- ===BEGIN FILE: <路径>=== -->` 标记分节 |
+| `yijing-divination-使用说明.md` | 安装 / 使用 / 维护 全说明 |
 
-## 三、最简还原方式：一句话交给 Agent
+把它交给新设备的 Agent（如 WorkBuddy），说：
 
-在新设备的 Agent（如 WorkBuddy）里直接发这句话：
+> 这是一份技能安装包。请按文档中的「===BEGIN FILE: <路径>===」标记切分文件，逐一写入
+> `~/.workbuddy/skills/yijing-divination/`（Windows 为 `%USERPROFILE%\.workbuddy\skills\yijing-divination\`），
+> 保持标记中的相对路径结构。完成后列出目录结构确认，应共 17 个文件。
 
-> 请从 ima「成果」知识库读取 yijing-divination-SKILL.md、yijing-divination-gua-index.md、yijing-divination-jiugua-rules.md、yijing-divination-knowledge-map.md 四个文件，按下列映射写入本地技能目录：
-> - SKILL.md → `~/.workbuddy/skills/yijing-divination/SKILL.md`
-> - 其余三个 → `~/.workbuddy/skills/yijing-divination/references/` 下，文件名去掉 `yijing-divination-` 前缀。
-> 完成后列出目录结构确认。
+还原后目录结构：
 
-（Windows 下 `~` 即 `C:\Users\<你的用户名>`。）
+```
+yijing-divination/
+├── SKILL.md
+├── data/            （README + 01~08，共 9 个文件）
+├── references/      （gua-index / jiugua-rules / knowledge-map）
+├── scripts/         （divine_gua.py）
+├── docs/            （本文件）
+├── README.md
+└── LICENSE
+```
 
-## 四、注意事项
+## 二、为什么不再逐个文件归档
 
-1. 新设备需登录**同一个 ima 账号**，否则读不到「资料 / 易经 / 知识库」的原文。
-2. `scripts/divine_gua.py` 无法经 ima 归档（其 MIME 对照表不含 `.py`）。缺它**不影响使用**——SKILL.md 已写明「脚本不可用时，按 `references/gua-index.md` 第三节的算法手算」。如需脚本，从 GitHub 仓库取，或从已有设备拷贝。
-3. 连接器若显示已授权但工具不可调用，在连接器菜单里**重连一次**即可恢复。
+早期（2026-10-13）曾把技能拆成 4 个单文件（`yijing-divination-SKILL.md`、`-gua-index.md`、`-jiugua-rules.md`、`-knowledge-map.md`）归档，靠"逐份读取再写盘"还原。该方式已废弃：
+
+- 它把技能拆成 4 份，**漏文件、错目录的风险高**；
+- 它无法承载 `data/`（八部经文，92 KB）与 `scripts/`，**早已落后于自包含改造**；
+- 单文件方式还需要**逐份核对**，而自还原包**一次到位**。
+
+所以：**请以下载自还原安装包（或 GitHub 仓库）为唯一还原途径。** 若在「易经占卦-skill」中看到那批带 `yijing-divination-` 前缀的**单文件旧归档**，它们已停止维护，请勿使用。
+
+## 三、可选组件
+
+| 组件 | 是否必需 | 说明 |
+| --- | --- | --- |
+| `scripts/divine_gua.py` | ⬜ 可选 | 已包含在安装包内。若不还原它，按 `references/gua-index.md` 第三节的算法手算即可 |
+| ima 连接器 | ⬜ 可选 | 本技能已完全自包含，**安装与运行均不需要**；仅在需要交叉核对上游知识库时使用 |
+
+## 四、补充
+
+- 若能访问 GitHub，`git clone https://github.com/tcxjason/yijing-divination.git ~/.workbuddy/skills/yijing-divination` 更省事（该仓库为 Private，需凭据）。
+- 安装后**重开一次会话**（技能列表有扫描缓存），说「解卦：本卦泰，三爻变」验证。
+- 本地已装好技能时，改动 `SKILL.md` 或 `data/` 后**务必同步**到 `~/.workbuddy/skills/yijing-divination/`（用 `diff -r` 校验）。
