@@ -1,4 +1,4 @@
-# 易经占卦解卦 Skill · yijing-divination
+# HexaFlow · 易经占卦解卦 Skill
 
 > 一个可直接装进 AI Agent 的**易经占卦解卦技能**：你只需报出「本卦 + 变爻」，它自动推出之卦、按朱熹《周易本义》确定该引哪些经文，并从随附的经文数据中取原文，输出结构化的解卦报告。
 >
@@ -8,7 +8,7 @@
 
 ## 这是什么
 
-`yijing-divination` 是一份遵循 Agent Skill 规范的技能包（SKILL.md + data + references + scripts）。它的判定链路是：
+`hexaflow` 是一份遵循 Agent Skill 规范的技能包（SKILL.md + data + references + scripts）。它的判定链路是：
 
 **识别意图 → 规范化输入 → 确定引用范围 → 检索原文 → 结构化输出**
 
@@ -26,7 +26,7 @@
 ## 目录结构
 
 ```
-yijing-divination/
+hexaflow/
 ├── SKILL.md                   # 技能主文件：角色、数据来源、适用场景、输入要求、执行流程、输出规范
 ├── data/                      # 随附经文原文（公有领域，已剥离现代译文与注解）
 │   ├── 01-卦辞爻辞.md         # 六十四卦卦辞与爻辞
@@ -58,15 +58,15 @@ yijing-divination/
 
 ```bash
 # macOS / Linux
-git clone https://github.com/tcxjason/yijing-divination.git ~/.workbuddy/skills/yijing-divination
+git clone https://github.com/tcxjason/HexaFlow.git ~/.workbuddy/skills/hexaflow
 ```
 
 ```powershell
 # Windows PowerShell
-git clone https://github.com/tcxjason/yijing-divination.git "$env:USERPROFILE\.workbuddy\skills\yijing-divination"
+git clone https://github.com/tcxjason/HexaFlow.git "$env:USERPROFILE\.workbuddy\skills\hexaflow"
 ```
 
-> 目录名必须是 `yijing-divination`，与 `SKILL.md` 里的 `name` 保持一致。
+> 目录名必须是 `hexaflow`，与 `SKILL.md` 里的 `name` 保持一致。
 
 ### 运行时依赖
 
@@ -108,7 +108,7 @@ git clone https://github.com/tcxjason/yijing-divination.git "$env:USERPROFILE\.w
 **示例**
 
 ```
-使用技能 yijing-divination，解卦：
+使用技能 hexaflow，解卦：
 咨询「未来一段时间的财运」（约 3 个月~半年），
 占得本卦「巽」，初六和上九两爻变。
 ```
